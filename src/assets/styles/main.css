@@ -1,0 +1,7 @@
+@import "./reser.css";
+@import "./router-link.css";
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

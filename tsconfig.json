@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "strict": true,
     "jsx": "preserve",
     "moduleResolution": "node",
     "skipLibCheck": true,
@@ -12,9 +11,7 @@
     "useDefineForClassFields": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": [
-      "webpack-env"
-    ],
+    "types": ["vite/client"],
     "paths": {
       "@/*": [
         "src/*"

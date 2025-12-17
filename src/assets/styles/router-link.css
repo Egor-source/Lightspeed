@@ -1,0 +1,12 @@
+.router-link{
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.router-link-exact-active:not(.router-link_no-active){
+  color: initial !important;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.08);
+}

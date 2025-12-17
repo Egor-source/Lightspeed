@@ -1,9 +1,18 @@
+<script setup lang="ts">
+import { useRoute } from "vue-router";
+import NotificationContainer from "@/components/NotificationContainer.vue";
+import { VueQueryDevtools } from "@tanstack/vue-query-devtools";
+
+const route = useRoute();
+const isDev = import.meta.env.VITE_NODE_ENV === "dev";
+</script>
+
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <component :is="route.meta.layout || 'div'">
+    <router-view />
+  </component>
+  <notification-container />
+  <vue-query-devtools v-if="isDev" />
 </template>
 
 <style lang="scss">
