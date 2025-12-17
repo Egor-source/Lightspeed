@@ -1,0 +1,62 @@
+name: Deploy Vite site to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+
+    steps:
+      # 1. Проверяем репозиторий
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Устанавливаем Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20" # можешь поменять на нужную версию
+
+      # 3. Устанавливаем зависимости
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Устанавливаем переменные окружения
+      - name: Set environment variables
+        run: |
+          echo "VITE_API_URL=https://app.ecwid.com/api/v3/108362264/" >> $GITHUB_ENV
+          echo "VITE_AUTH_TOKEN=public_RiNvjTVVzKLhFNWyzR5fNY68u1GMHLEs" >> $GITHUB_ENV
+          echo "VITE_NODE_ENV=prod" >> $GITHUB_ENV
+
+      # 5. Сборка проекта
+      - name: Build project
+        run: npm run build
+
+      # 6. Подготовка к деплою на GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 7. Загружаем артефакт сборки
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      # 8. Деплой на GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
