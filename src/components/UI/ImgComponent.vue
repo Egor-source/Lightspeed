@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { defineProps, PropType, ref, watch } from "vue";
+import notFoundImage from "@/assets/not-found-image.png";
 
 const props = defineProps({
   src: {
     type: String,
-    default: "src/assets/not-found-image.png",
+    default: notFoundImage,
   },
   alt: { type: String, default: "" },
   aspectRatio: { type: String, default: "16/9" },
@@ -15,7 +16,7 @@ const props = defineProps({
     default: "cover",
   },
   showSkeleton: { type: Boolean, default: true },
-  fallbackSrc: { type: String, default: "src/assets/not-found-image.png" },
+  fallbackSrc: { type: String, default: notFoundImage },
 });
 
 const isLoaded = ref(false);
